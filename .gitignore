@@ -344,3 +344,5 @@ fabric.properties
 .history
 
 # End of https://www.gitignore.io/api/macos,emacs,python,django,pycharm,visualstudiocode
+
+/src/api/garbageApi

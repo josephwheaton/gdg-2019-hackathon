@@ -13,7 +13,7 @@ class User(models.Model):
             email = email,
             first_name = first_name,
             last_name = last_name,
-            
+
         )
         User.objects.create(user)
         return user
@@ -47,10 +47,10 @@ def in_range(e, self):
 
 class Target(models.Model):
     target_id = models.AutoField(primary_key=True)
-    location = models.ForeignKey("Location")
+    #location = models.ForeignKey("Location")
     image = models.ImageField()
     # home location or garbage location
-    type = models.CharField()
+    type = models.CharField(max_length=50)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=60)
 
@@ -58,7 +58,7 @@ class Target(models.Model):
     points = models.IntegerField(default=20)
 
     def create_target(self, loc, info):
-        Target.objects.create(self, Location=loc, image=info, points=info,)
+        #Target.objects.create(self, Location=loc, image=info, points=info,)
         pass
 
     # returns a list of Targets in range of the current target. maybe.

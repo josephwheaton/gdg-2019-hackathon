@@ -14,7 +14,7 @@ export class UsersService {
     params.set('lastName', lastName);
     params.set('email', email);
 
-    return this.http.get(this.config.apiUrl + '/users/user', { params });
+    return this.http.get(this.config.apiUrl + '/users', { params });
   }
 
   createUser(firstName: string, lastName: string, email: string) {
