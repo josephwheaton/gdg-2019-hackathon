@@ -19,14 +19,28 @@ from rest_framework import status
 from rest_framework.generics import ListAPIView
 from django_app.app.models import Location
 
+class UserView(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get(self, request, format=None):
+        try:
+            user = queryset.get(pk=request.data['email'])
+            serializer = UserSerializer(user)
+            return JsonResponse(serializer.data, safe=False)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, format=None):
+        user = User.create_user(self, request.data['first_name'], request.data['last_name'],  request.data['email'])
+        serializer = UserSerializer(user)
+        return JsonResponse(serializer.data, safe=False)
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = ["Latitude", "Longitude"]
 from .serializer import UserSerializer
-
-# Create your views here.
 
 class LocationView(APIView):
 
@@ -45,38 +59,7 @@ class LocationsView(ListAPIView):
     def get(self, request, format=None):
         serializer = LocationSerializer()
 
-class UserView(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
-    def get(self, request, format=None):
-        try:
-            user = queryset.get(pk=request.data['email'])
-            serializer = UserSerializer(user)
-            return JsonResponse(serializer.data, safe=False)
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-    def post(self, request, format=None):
-        user = User.create_user(self, request.data['first_name'], request.data['last_name'],  request.data['email'])
-        serializer = UserSerializer(user)
-        return JsonResponse(serializer.data, safe=False)
-class UserView(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-    def get(self, request, format=None):
-        try:
-            user = queryset.get(pk=request.data['email'])
-            serializer = UserSerializer(user)
-            return JsonResponse(serializer.data, safe=False)
-        except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-    def post(self, request, format=None):
-        user = User.create_user(self, request.data['first_name'], request.data['last_name'],  request.data['email'])
-        serializer = UserSerializer(user)
-        return JsonResponse(serializer.data, safe=False)
 
 
 
