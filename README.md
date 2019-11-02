@@ -9,4 +9,4 @@ Front end: (./src/gdg-garbage-app):
 >ng serve  
 
 Back end:
-¯\_(ツ)_/¯
+¯\\_(ツ)_/¯
