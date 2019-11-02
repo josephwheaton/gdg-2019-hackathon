@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.views import Response
+from rest_framework import viewsets
 from rest_framework.views import status
 from .models import User
-from .serializer import UsersSerializer
+from .serializer import UserSerializer
 
 from django.shortcuts import render
 from django.views import View
@@ -15,9 +17,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView
-
-
-# Create your views here.
 from django_app.app.models import Location
 
 
@@ -25,7 +24,9 @@ class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = ["Latitude", "Longitude"]
+from .serializer import UserSerializer
 
+# Create your views here.
 
 class LocationView(APIView):
 
@@ -41,21 +42,43 @@ class LocationView(APIView):
 
 
 class LocationsView(ListAPIView):
-
     def get(self, request, format=None):
         serializer = LocationSerializer()
-class UserView(APIView):
 
-    serializer_class = UsersSerializer
+class UserView(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get(self, request, format=None):
+        try:
+            user = queryset.get(pk=request.data['email'])
+            serializer = UserSerializer(user)
+            return JsonResponse(serializer.data, safe=False)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, format=None):
-        serializer = UserSerializer(data=request.data)
-        serializer.save()
-        return Response(serializer.data, status =status.HTTP_201_CREATED)
+        user = User.create_user(self, request.data['first_name'], request.data['last_name'],  request.data['email'])
+        serializer = UserSerializer(user)
+        return JsonResponse(serializer.data, safe=False)
+class UserView(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-class UsersView(ListAPIView):
-    def get(self, request,  format=None):
-        return Response(User.objects.all())
+    def get(self, request, format=None):
+        try:
+            user = queryset.get(pk=request.data['email'])
+            serializer = UserSerializer(user)
+            return JsonResponse(serializer.data, safe=False)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, format=None):
+        user = User.create_user(self, request.data['first_name'], request.data['last_name'],  request.data['email'])
+        serializer = UserSerializer(user)
+        return JsonResponse(serializer.data, safe=False)
+
+
 
 
 
