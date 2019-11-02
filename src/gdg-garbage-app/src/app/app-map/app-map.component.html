@@ -13,7 +13,7 @@
       [opacity]="marker.alpha"
       (markerClick)="selectMarker($event)"
       ><agm-info-window
-        ><app-info-form [latitude]="marker.latitude" [longitude]="marker.longitude"></app-info-form
+        ><app-info-form [latitude]="marker.lat" [longitude]="marker.lng"></app-info-form
       ></agm-info-window>
     </agm-marker>
   </agm-map>

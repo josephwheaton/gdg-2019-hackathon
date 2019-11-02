@@ -10,6 +10,7 @@ export class LocationsService {
   constructor(private config: ConfigService, private http: HttpClient) {}
 
   getLocations() {
+    console.log(this.config.apiUrl + '/locations');
     return this.http.get(this.config.apiUrl + '/locations').pipe(
       tap(v => {
         console.log(`getLocations result: %o`, v);

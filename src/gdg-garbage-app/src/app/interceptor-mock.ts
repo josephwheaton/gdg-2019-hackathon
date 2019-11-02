@@ -67,7 +67,8 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     for (const element of urls) {
       if (request.url === element.url) {
         console.log('Loaded from json : ' + request.url);
-        return of(new HttpResponse({ status: 200, body: (element.json as any).default }));
+        console.log();
+        return of(new HttpResponse({ status: 200, body: element.json as any }));
       }
     }
     console.log('Loaded from http call :' + request.url);
