@@ -24,14 +24,18 @@ export class AppInfoFormComponent implements OnInit {
     });
   }
 
-  onUpload(latitude: number, longitude: number, description: string) {
+  onUpload() {
     this.locationsService
-      .createLocation(latitude, longitude, description)
+      .createLocation(this.latitude, this.longitude, this.description.value)
       .pipe(
         tap(v => {
           console.log(`createLocation result: %o`, v);
         })
       )
       .subscribe();
+  }
+
+  get description() {
+    return this.markerForm.get('description');
   }
 }

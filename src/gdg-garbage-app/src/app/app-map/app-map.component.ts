@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest, of } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { LocationsService } from 'src/app/services/locations.service';
 import { Location } from '../services/location.model';
 
 @Component({
@@ -17,7 +18,7 @@ export class AppMapComponent implements OnInit {
   loading = true;
   zoomLevel: number;
 
-  constructor() {}
+  constructor(private locationsService: LocationsService) {}
 
   ngOnInit() {
     this.lat = 43.03;
@@ -25,9 +26,10 @@ export class AppMapComponent implements OnInit {
     this.mapType = 'roadmap';
     this.zoomLevel = 12;
     this.locations = [];
-    combineLatest(of(null))
+    combineLatest(this.locationsService.getLocations())
       .pipe(
-        tap(v => {
+        tap((v: any) => {
+          this.locations.push(new Location(v.latitude, v.longitude, 1));
           this.loading = false;
         })
       )
@@ -36,7 +38,7 @@ export class AppMapComponent implements OnInit {
 
   addMarker(lat: number, lng: number, event: any) {
     console.log(`lat: ${lat} lng: ${lng} event: %o`, event);
-    this.locations.push(new Location(lat, lng, 0.4));
+    this.locations.push(new Location(lat, lng, 1));
   }
 
   selectMarker(event) {
