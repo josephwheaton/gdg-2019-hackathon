@@ -1,0 +1,7 @@
+<mat-card *ngIf="!loading" [formGroup]="loginForm">
+  <mat-form-field><input matInput placeholder="First Name" formControlName="firstName"/></mat-form-field>
+  <mat-form-field><input matInput placeholder="First Name" formControlName="lastName"/></mat-form-field>
+  <mat-form-field><input matInput placeholder="Email" formControlName="email"/></mat-form-field>
+  <button></button>
+</mat-card>
+<mat-spinner *ngIf="loading"></mat-spinner>
