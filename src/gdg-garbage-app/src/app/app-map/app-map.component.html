@@ -12,7 +12,9 @@
       [longitude]="marker.lng"
       [opacity]="marker.alpha"
       (markerClick)="selectMarker($event)"
-      ><agm-info-window>Börk</agm-info-window>
+      ><agm-info-window
+        ><app-info-form [latitude]="marker.latitude" [longitude]="marker.longitude"></app-info-form
+      ></agm-info-window>
     </agm-marker>
   </agm-map>
 </mat-card>

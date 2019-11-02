@@ -1,7 +1,22 @@
-<mat-card *ngIf="!loading" [formGroup]="loginForm">
-  <mat-form-field><input matInput placeholder="First Name" formControlName="firstName"/></mat-form-field>
-  <mat-form-field><input matInput placeholder="First Name" formControlName="lastName"/></mat-form-field>
-  <mat-form-field><input matInput placeholder="Email" formControlName="email"/></mat-form-field>
-  <button></button>
+<mat-card-title>Please login or register!</mat-card-title>
+<mat-card *ngIf="!loading || !this.submitting">
+  <form [formGroup]="loginForm">
+    <mat-form-field>
+      <input matInput placeholder="First Name" formControlName="firstName" />
+      <mat-error *ngIf="firstName.hasError('required')">First name is required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Last Name" formControlName="lastName" />
+      <mat-error *ngIf="lastName.hasError('required')">Last name is required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Email" formControlName="email" />
+      <mat-error *ngIf="email.hasError('required')">Email is required</mat-error>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <br />
+    <button id="login" type="button" [disabled]="submitting" (click)="onLogin()">Login</button>
+    <button id="register" type="button" [disabled]="submitting" (click)="onRegister()">Register</button>
+  </form>
 </mat-card>
 <mat-spinner *ngIf="loading"></mat-spinner>

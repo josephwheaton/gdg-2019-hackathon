@@ -14,11 +14,11 @@ export class UsersService {
     params.set('lastName', lastName);
     params.set('email', email);
 
-    return this.http.get(this.config.apiUrl, { params });
+    return this.http.get(this.config.apiUrl + '/users/user', { params });
   }
 
   createUser(firstName: string, lastName: string, email: string) {
-    this.http.post(this.config.apiUrl, {
+    return this.http.post(this.config.apiUrl + '/users', {
       firstName,
       lastName,
       email

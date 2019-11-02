@@ -1,0 +1,13 @@
+<h5>Longitude: {{ longitude }}</h5>
+<h5>Latitude: {{ latitude }}</h5>
+<form [formGroup]="markerForm">
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput formControlName="description" />
+  </mat-form-field>
+  <!-- <mat-form-field>
+    <mat-label></mat-label>
+    <input matInput formControlName="" />
+  </mat-form-field> -->
+  <button id="upload" type="button" (click)="onUpload()">Upload Target</button>
+</form>
