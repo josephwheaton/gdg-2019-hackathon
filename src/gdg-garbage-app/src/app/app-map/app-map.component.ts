@@ -33,7 +33,7 @@ export class AppMapComponent implements OnInit {
           const parsedLocations: [] = JSON.parse(v);
           console.log(`parsed locations: %o`, parsedLocations);
           parsedLocations.forEach((location: any) => {
-            this.locations.push(new Location(location.lat, location.lng, location.description, 1));
+            this.locations.push(new Location(location.lng, location.lat, location.description, 1));
           });
           this.cdRef.detectChanges();
           this.loading = false;
