@@ -1,5 +1,5 @@
-
 from django.db import models
+
 
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -18,9 +18,10 @@ class User(models.Model):
         if commit:
             user.save(using=self._db)
         return user
-    
-    def check_if_created(self, info):
-        pass
+
+    def add_points(self, target_completed):
+        self.redeemable_points = self.redeemable_points + target_completed.points
+        # TODO should eliminate the target after completion. Maybe not in this method
 
 
 class Location(models.Model):
@@ -29,7 +30,6 @@ class Location(models.Model):
     lat = models.FloatField()
     long = models.FloatField()
 
-
     def create_Location(self, latitude, longitude):
         Location.objects.create(self, Lat=latitude, long=longitude)
 
@@ -37,12 +37,12 @@ class Location(models.Model):
         pass
 
 
-#TODO make this function better. math is awfull.
+# TODO make this function better. math is awfull.
 def in_range(e, self):
-    dif1 =e.location.lat-self.location.lat
-    dif2 =e.location.long-self.location.long
-    if abs(dif1) +abs(dif2) <20:
-         return True
+    dif1 = e.location.lat-self.location.lat
+    dif2 = e.location.long-self.location.long
+    if abs(dif1) + abs(dif2) < 20:
+        return True
     return False
 
 
@@ -55,7 +55,7 @@ class Target(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=60)
 
-    # a default ammount currently
+    # a default amount currently
     points = models.IntegerField(default=20)
 
     def create_target(self, loc, info):
@@ -68,9 +68,8 @@ class Target(models.Model):
         # returns the other targets in range of this one TODO currently just does it with all home roles
         for e in Target.objects.all():
             if e.type == "Home" and in_range(e, self):
-                targList = targList + e
-        return targList
-
+                targ_list = targ_list + e
+        return targ_list
 
     # functionality: if same area is marked by different people can add pictures to the original  target,
     # so no dupes.
