@@ -10,13 +10,12 @@ class User(models.Model):
 
     def create_user(self, first_name, last_name, email ):
         user = self.model(
-            email = self.normalize_email(email),
+            email = email,
             first_name = first_name,
             last_name = last_name,
             
         )
-        if commit:
-            user.save(using=self._db)
+        User.objects.create(user)
         return user
     
     def check_if_created(self, info):
