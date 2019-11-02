@@ -1,0 +1,18 @@
+<agm-map
+  *ngIf="!loading"
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoomLevel"
+  (mapClick)="addMarker($event.coords.lat, $event.coords.lng, $event)"
+  mapTypeId="{{ mapType }}"
+>
+  <agm-marker
+    *ngFor="let marker of locations"
+    [latitude]="marker.lat"
+    [longitude]="marker.lng"
+    [opacity]="marker.alpha"
+    markerDraggable="true"
+    (markerClick)="selectMarker($event)"
+  ></agm-marker>
+</agm-map>
+<mat-spinner *ngIf="loading"></mat-spinner>
