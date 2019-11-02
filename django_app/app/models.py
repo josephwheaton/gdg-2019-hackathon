@@ -1,4 +1,26 @@
+
 from django.db import models
+
+class User(models.Model):
+    user_id = models.AutoField(primary_key=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.CharField(max_length=200)
+    redeemable_points = models.IntegerField(default=0)
+
+    def create_user(self, first_name, last_name, email ):
+        user = self.model(
+            email = self.normalize_email(email),
+            first_name = first_name,
+            last_name = last_name,
+            
+        )
+        if commit:
+            user.save(using=self._db)
+        return user
+    
+    def check_if_created(self, info):
+        pass
 
 
 class Location(models.Model):
