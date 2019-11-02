@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LocationsService } from 'src/app/services/locations.service';
@@ -18,7 +18,7 @@ export class AppMapComponent implements OnInit {
   loading = true;
   zoomLevel: number;
 
-  constructor(private locationsService: LocationsService) {}
+  constructor(private cdRef: ChangeDetectorRef, private locationsService: LocationsService) {}
 
   ngOnInit() {
     this.lat = 43.03;
@@ -29,7 +29,13 @@ export class AppMapComponent implements OnInit {
     combineLatest(this.locationsService.getLocations())
       .pipe(
         tap((v: any) => {
-          this.locations.push(new Location(v.latitude, v.longitude, 1));
+          console.log(`locations from api: %o`, v);
+          const parsedLocations: [] = JSON.parse(v);
+          console.log(`parsed locations: %o`, parsedLocations);
+          parsedLocations.forEach((location: any) => {
+            this.locations.push(new Location(location.latitude, location.longitude, location.description, 1));
+          });
+          this.cdRef.detectChanges();
           this.loading = false;
         })
       )
@@ -38,7 +44,7 @@ export class AppMapComponent implements OnInit {
 
   addMarker(lat: number, lng: number, event: any) {
     console.log(`lat: ${lat} lng: ${lng} event: %o`, event);
-    this.locations.push(new Location(lat, lng, 1));
+    this.locations.push(new Location(lat, lng));
   }
 
   selectMarker(event) {
