@@ -23,6 +23,7 @@ export class AppInfoFormComponent implements OnInit {
     this.markerForm = new FormGroup({
       description: new FormControl('', Validators.required)
     });
+    this.markerForm.get('description').patchValue(this.description);
   }
 
   onUpload() {
