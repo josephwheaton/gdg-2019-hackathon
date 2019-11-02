@@ -5,19 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.views import Response
 from rest_framework import viewsets
 from rest_framework.views import status
-from .models import User
-from .serializer import UserSerializer
-
-from django.shortcuts import render
-from django.views import View
-from django_app.app import models
-from rest_framework import serializers
-from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.generics import ListAPIView
-from django_app.app.models import Location
+from .models import User, Location
+from .serializer import UserSerializer, LocationSerializer
 
 class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -36,28 +25,22 @@ class UserView(viewsets.ModelViewSet):
         serializer = UserSerializer(user)
         return JsonResponse(serializer.data, safe=False)
 
-class LocationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Location
-        fields = ["Latitude", "Longitude"]
-from .serializer import UserSerializer
+#class LocationView(APIView):
 
-class LocationView(APIView):
+#    queryset = Location.objects.all()
+#    serializer_class = LocationSerializer
 
-    queryset = Location.objects.all()
-    serializer_class = LocationSerializer
-
-    def post(self, request, format=None):
-        serializer = LocationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#    def post(self, request, format=None):
+#        serializer = LocationSerializer(data=request.data)
+#        if serializer.is_valid():
+#            serializer.save()
+#            return Response(serializer.data, status=status.HTTP_201_CREATED)
+#        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LocationsView(ListAPIView):
-    def get(self, request, format=None):
-        serializer = LocationSerializer()
+#class LocationsView(ListAPIView):
+#    def get(self, request, format=None):
+ #       serializer = LocationSerializer()
 
 
 
