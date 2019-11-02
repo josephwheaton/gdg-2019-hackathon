@@ -5,7 +5,9 @@ GDG 2019 Hackathon
 
 Front end: (./src/gdg-garbage-app):
 >npm install -g @angular/cli
+
 >npm install
+
 >ng serve
 
 Back end:
