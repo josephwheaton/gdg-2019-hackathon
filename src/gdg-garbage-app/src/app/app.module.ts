@@ -2,7 +2,14 @@ import { AgmCoreModule } from '@agm/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule, MatCommonModule, MatDividerModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule } from '@angular/material';
+import {
+  MatCardModule,
+  MatCommonModule,
+  MatDividerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpMockRequestInterceptor } from 'src/app/interceptor-mock';
@@ -13,12 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AppMapComponent,
-    AppLoginComponent,
-    AppInfoFormComponent
-  ],
+  declarations: [AppComponent, AppMapComponent, AppLoginComponent, AppInfoFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
