@@ -11,6 +11,7 @@ import { LocationsService } from 'src/app/services/locations.service';
 export class AppInfoFormComponent implements OnInit {
   @Input() latitude: number;
   @Input() longitude: number;
+  @Input() description: string;
 
   markerForm: FormGroup;
 
@@ -26,7 +27,7 @@ export class AppInfoFormComponent implements OnInit {
 
   onUpload() {
     this.locationsService
-      .createLocation(this.latitude, this.longitude, this.description.value)
+      .createLocation(this.latitude, this.longitude, this.description)
       .pipe(
         tap(v => {
           console.log(`createLocation result: %o`, v);
@@ -35,7 +36,7 @@ export class AppInfoFormComponent implements OnInit {
       .subscribe();
   }
 
-  get description() {
-    return this.markerForm.get('description');
-  }
+  // get description() {
+  //   return this.markerForm.get('description');
+  // }
 }
